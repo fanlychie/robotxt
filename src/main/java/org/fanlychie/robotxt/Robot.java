@@ -1,7 +1,5 @@
 package org.fanlychie.robotxt;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -39,16 +37,26 @@ public final class Robot {
 
     private static final LinkedList<String> EMAIL_LIST = new LinkedList<>();
 
-
-
-    public static void main(String[] args) {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        for (int i = 0; i < 2000; i++) {
-            System.out.println(format.format(getDate()));
-        }
+    /**
+     * 获取随机年龄, 返回的数值18+
+     */
+    public static int getAge() {
+        return getAge(18);
     }
 
-    private static Date getDate() {
+    /**
+     * 获取随机年龄
+     *
+     * @param base 基数
+     */
+    public static int getAge(int base) {
+        return ThreadLocalRandom.current().nextInt(base) + base;
+    }
+
+    /**
+     * 获取随机时间
+     */
+    public static Date getDate() {
         Calendar calendar = Calendar.getInstance();
         Random random = ThreadLocalRandom.current();
         calendar.add(Calendar.DAY_OF_MONTH, random.nextInt(13870) * -1);
@@ -58,10 +66,9 @@ public final class Robot {
         return calendar.getTime();
     }
 
-    public static String getEmail(String prefix) {
-        return prefix + EMAIL_SUFFIX[ThreadLocalRandom.current().nextInt(EMAIL_SUFFIX.length)];
-    }
-
+    /**
+     * 获取随机的唯一手机号码
+     */
     public static String getTel() {
         if (TEL_LIST.size() == 0) {
             synchronized (TEL_LIST) {
@@ -73,6 +80,9 @@ public final class Robot {
         return TEL_LIST.remove();
     }
 
+    /**
+     * 获取随机的唯一邮箱地址
+     */
     public static String getEmail() {
         if (EMAIL_LIST.size() == 0) {
             synchronized (EMAIL_LIST) {
@@ -84,25 +94,51 @@ public final class Robot {
         return getEmail(EMAIL_LIST.remove());
     }
 
+    /**
+     * 获取随机姓名
+     */
     public static String getName() {
         return getName(ThreadLocalRandom.current().nextBoolean());
     }
 
+    /**
+     * 获取随机的男性姓名
+     */
     public static String getMaleName() {
         return getName(false);
     }
 
+    /**
+     * 获取随机的女性姓名
+     */
     public static String getFemaleName() {
         return getName(true);
     }
 
+    /**
+     * 获取随机的姓名
+     *
+     * @param isFemale 是否是女性
+     */
     public static String getName(boolean isFemale) {
         Random random = ThreadLocalRandom.current();
         return getRandomLastName(random) + getRandomFirstName(random, isFemale);
     }
 
+    /**
+     * 获取性别
+     */
     public static String getSex() {
         return ThreadLocalRandom.current().nextBoolean() ? "男" : "女";
+    }
+
+    /**
+     * 获取邮箱地址
+     *
+     * @param prefix 邮箱前缀字符串
+     */
+    public static String getEmail(String prefix) {
+        return prefix + EMAIL_SUFFIX[ThreadLocalRandom.current().nextInt(EMAIL_SUFFIX.length)];
     }
 
     // 初始化手机号码
