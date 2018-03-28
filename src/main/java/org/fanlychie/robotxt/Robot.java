@@ -38,6 +38,22 @@ public final class Robot {
     private static final LinkedList<String> EMAIL_LIST = new LinkedList<>();
 
     /**
+     * 获取随机种子
+     *
+     * @param base 基数
+     */
+    public static int getSeed(int base) {
+        return ThreadLocalRandom.current().nextInt(base);
+    }
+
+    /**
+     * 获取随机种子
+     */
+    public static boolean getSeed() {
+        return ThreadLocalRandom.current().nextBoolean();
+    }
+
+    /**
      * 获取随机年龄, 返回的数值18+
      */
     public static int getAge() {
@@ -127,9 +143,18 @@ public final class Robot {
 
     /**
      * 获取性别
+     *
+     * @param isFemale 是否是女性
+     */
+    public static String getSex(boolean isFemale) {
+        return isFemale ? "女" : "男";
+    }
+
+    /**
+     * 获取性别
      */
     public static String getSex() {
-        return ThreadLocalRandom.current().nextBoolean() ? "男" : "女";
+        return getSex(ThreadLocalRandom.current().nextBoolean());
     }
 
     /**
