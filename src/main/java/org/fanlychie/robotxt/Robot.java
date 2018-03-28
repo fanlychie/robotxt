@@ -70,6 +70,13 @@ public final class Robot {
     }
 
     /**
+     * 获取随机的java.sql.Date
+     */
+    public static java.sql.Date getSQLDate() {
+        return new java.sql.Date(getDate().getTime());
+    }
+
+    /**
      * 获取随机时间
      */
     public static Date getDate() {
